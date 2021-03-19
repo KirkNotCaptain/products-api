@@ -1,0 +1,35 @@
+//skus contain 27 million entries and are too large to combine into our style-photo collection. 
+//they will be kept in their separate collection (and will be queueried separately by the API)
+//detailed below is the basic restructuring to group them by the style_id
+
+//result data will have this structure:
+
+{
+    _id: "..." (styleid),
+    skus: [{
+        id: "..." (sku id),
+        size: "...",
+        quantity: "..."
+        },
+        {
+            "..." more skus for the above style id
+        }
+    ]
+}
+
+
+$group: {
+  _id: "$ styleId",
+  skus: {
+    $push: {
+      id: "$id",
+      size: "$ size",
+      quantity: "$ quantity"
+    }
+  }
+}
+
+$merge: {
+  into: 'productSKU',
+  on: '_id'
+}

@@ -1,0 +1,48 @@
+//step 2 - Combine photos (currently grouped by style id) to the corresponding style
+
+//end data structure:
+{
+  _id: ObjectId("2873rowjfajdfladkura"),
+  default_style: "..",
+  id: ".." (aka style_id),
+  original_price: "...",
+  sale_price: "..",
+  productId: "..",
+  photos: {
+    _id: "..." //same as id above,
+    photos: [
+      {
+        url: "...",
+        thumbnail_url: "..."
+      },
+      {
+        ...more objects with url and thumbnail_url
+      }
+    ]
+  }
+}
+
+//starting - inside of raw styles data
+$lookup: {
+  from: 'productPhotos',
+  localField: 'id',
+  foreignField: '_id',
+  as: 'photos'
+}
+
+$project: {
+    id: true,
+    productId: true,
+    original_price: true,
+    name: true,
+    sale_price: true,
+    default_style: true,
+    photos: {
+      $arrayElemAt: ["$photos", 0]
+    }
+  }
+
+  $merge: {
+  into: 'stylesStageOne',
+  on: '_id'
+}

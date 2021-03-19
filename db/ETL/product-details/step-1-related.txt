@@ -1,0 +1,19 @@
+Need to group related by their product id
+
+//result data structure:
+{
+  _id: "..." (current_product_id),
+  related: [2, 3, 4, 5] (list of product ids) for related products  
+}
+
+$group: {
+    _id: "$current_product_id",
+    related: {
+        $push: "$related_product_id"
+    }
+}
+
+$merge : {
+    into: "relatedStageOne",
+    on: "_id"
+}

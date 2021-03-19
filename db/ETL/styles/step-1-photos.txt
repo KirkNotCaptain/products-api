@@ -1,0 +1,35 @@
+Converting raw photo data from:
+
+{
+    _id: ObjectId('97aduaocv89a7dfadjfa87'),
+    id: i,
+    style_id: 1,
+    url: "http://someurl.png"
+    thumbnail_url: "http://someurl.png"
+}
+
+To objects grouped by style_id:
+{
+    _id: 1 //style_id,
+    photos: [
+        {
+            url: "...",
+            thumbnail_url: "..."
+        },
+        {
+            url: "...",
+            thumbnail_url: "..."
+        }
+    ]
+}
+
+Aggregation Pipeline
+$group: {
+  _id: "$ styleId",
+  photos: {
+    $push: {
+      url: "$ url",
+      thumbnail_url: "$ thumbnail_url"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+//must start within the raw product data:
+
+$lookup: {
+  from: 'relatedStageOne',
+  localField: 'id',
+  foreignField: '_id',
+  as: 'related'
+}
+
+$project: {
+  id: true,
+  name: true,
+  slogan: true,
+  description: true,
+  category: true,
+  default_price: true,
+  related: {
+    $arrayElemAt: ["$related.related",0]
+  }
+}
+
+$merge: {
+    into: "relatedStageTwo",
+    on: "_id"
+}

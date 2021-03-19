@@ -1,0 +1,61 @@
+//step three - unNest the photos within styles
+
+//end data structure:
+{
+    _id: ObjectId("..."),
+    id: "...",
+    name: "...",
+    original_price: "...",
+    sale_price: "...",
+    productId: "...",
+    photos: [
+        {
+            url: "...",
+            thumbnail_url: "..."
+        },
+        {
+            ... //more photo objects
+        }
+    ]
+}
+
+$group: {
+  _id: "$_id",
+  default_style: {
+    $first: "$default_style"
+  },
+  id: {
+    $first: "$id"
+  },
+  name: {
+    $first: "$name"
+  },
+  original_price: {
+    $first: "$original_price"
+  },
+  sale_price: {
+    $first: "$sale_price"
+  },
+  productId: {
+    $first: "$productId"
+  },
+  photos: {
+    $push: "$photos.photos"
+  }
+}
+
+$lookup: {
+  id: true,
+  name: true,
+  original_price: true,
+  sale_price: true,
+  productId: true,
+  photos:{
+    $arrayElemAt: ["$photos", 0]
+  }
+}
+
+$merge: {
+  into: 'stylesStageTwo',
+  on: '_id'
+}
