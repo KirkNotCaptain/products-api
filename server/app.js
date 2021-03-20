@@ -1,15 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const router = require('./routes.js');
+
 const app = express();
 const port = 8080;
-const queryProductId = require('../db/index.js');
 
-app.use(cors());
-app.get('/', (req, res) => {
-  queryProductId().then((docs) => {
-    res.send(docs);
-  });
-});
+app.use('/', router);
 
 app.listen(port);
 console.log('listening on port: ', port);
