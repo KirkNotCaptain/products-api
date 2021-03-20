@@ -21,10 +21,7 @@
 
 $group: {
   _id: "$_id",
-  default_style: {
-    $first: "$default_style"
-  },
-  id: {
+  style_id: {
     $first: "$id"
   },
   name: {
@@ -36,6 +33,9 @@ $group: {
   sale_price: {
     $first: "$sale_price"
   },
+  "default?": {
+    $first: "$default_style"
+  },
   productId: {
     $first: "$productId"
   },
@@ -44,14 +44,15 @@ $group: {
   }
 }
 
-$lookup: {
-  id: true,
+$project: {
+  style_id: true,
   name: true,
   original_price: true,
   sale_price: true,
+  'default?': true,
   productId: true,
-  photos:{
-    $arrayElemAt: ["$photos", 0]
+  photos: {
+    $arrayElemAt: ['$photos', 0]
   }
 }
 

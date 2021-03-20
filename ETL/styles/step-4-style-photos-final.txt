@@ -1,0 +1,24 @@
+//group the styles by their productId
+
+
+$group: {
+  _id: "$productId",
+  product_id: {
+    $first: "$productId"
+  },
+  results: {
+    $push: {
+      style_id: "$style_id",
+      name: "$name",
+      original_price: "$original_price",
+      sale_price: "$sale_price",
+      "default?": "$default?",
+      photos: "$photos"
+    }
+  }
+}
+
+$merge: {
+  into: 'styles',
+  on: "_id"
+}
