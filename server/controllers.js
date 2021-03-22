@@ -27,29 +27,22 @@ let queryProducts = (req, res) => {
 
   productsCollection
     .find({})
+    .project({
+      _id: 0,
+      features: 0,
+      related: 0,
+    })
     .sort({ id: 1 })
     .limit(limit)
     .toArray()
     .then((docs) => {
+      console.log(docs);
       if (!docs) {
         res.status(200).send({});
         return;
       }
-      let response = [];
 
-      docs.forEach((res) => {
-        response.push({
-          id: res['id'],
-          name: res['name'],
-          slogan: res['slogan'],
-          description: res['description'],
-          category: res['category'],
-          default_price: res['default_price'].trim(),
-        });
-      });
-      //console.log(docs);
-
-      res.status(200).send(response);
+      res.status(200).send(docs);
     });
 };
 
@@ -59,44 +52,38 @@ let queryProducts = (req, res) => {
   =========================================================================*/
 let queryProductId = (req, res) => {
   let id = Number(req.params.product_id);
-  productsCollection.findOne({ id }).then((docs) => {
-    if (!docs) {
-      res.status(200).send({});
-      return;
-    }
-    let response = {
-      id: docs['id'],
-      name: docs['name'],
-      slogan: docs['slogan'],
-      description: docs['description'],
-      category: docs['category'],
-      default_price: docs['default_price'].trim(),
-      features: docs['features'],
-    };
-    res.status(200).send(response);
-  });
+  productsCollection
+    .findOne({ id }, { projection: { _id: false } })
+    .then((docs) => {
+      if (!docs) {
+        res.status(200).send({});
+        return;
+      }
+      res.status(200).send(docs);
+    });
 };
 
 /*=========================================================================
   =                         Related Products                      =
       Returns the id's of products related to the product specified.
   =========================================================================*/
-
 let queryRelatedProducts = (req, res) => {
   let id = Number(req.params.product_id);
-  productsCollection.findOne({ id }).then((docs) => {
-    if (!docs) {
-      res.status(200).send({});
-      return;
-    }
-    let relatedProducts = docs['related'] || [];
-    res.status(200).send(relatedProducts);
-  });
+
+  productsCollection
+    .findOne({ id }, { projection: { _id: false, related: true } })
+    .then((docs) => {
+      if (!docs) {
+        res.status(200).send({});
+        return;
+      }
+      res.status(200).send(docs['related']);
+    });
 };
 
 /*=========================================================================
 =                         Product Styles                        =
-Returns the all styles available for the given product.
+      Returns the all styles available for the given product.
 =========================================================================*/
 let queryProductStyles = (req, res) => {
   console.log(req.params);
@@ -131,6 +118,9 @@ let queryProductStyles = (req, res) => {
       });
 
       response.results.forEach((result) => {
+        if (result['sale_price'] === 'null') {
+          result['sale_price'] = null;
+        }
         result['default?']
           ? (result['default?'] = true)
           : (result['default?'] = false);
