@@ -29,6 +29,22 @@ $group: {
   }
 }
 
+$project: {
+  _id: true,
+  skus: {
+    $arrayToObject: {
+      $map: {
+        "input": "$skus",
+        "as": "el",
+        "in": {
+          "k": "$$el.id",
+          "v": "$$el"
+        }
+      }
+    }
+  }
+}
+
 $merge: {
   into: 'productSKU',
   on: '_id'
