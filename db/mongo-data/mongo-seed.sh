@@ -1,0 +1,1 @@
+mongoimport --host mongo --db productsAPI --collection products --type json -- products.json --jsonArray && mongoimport --host mongo --db productsAPI --collection styles --type json -- styles.json --jsonArray && mongoimport --host mongo --db productsAPI --collection skus --type json -- skus.json --jsonArray
