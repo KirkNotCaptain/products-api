@@ -2,7 +2,7 @@ const router = require('express').Router();
 const controllers = require('./controllers.js');
 
 router.get('/', (req, res) => {
-  res.send('Welcome to the products api');
+  res.send('welcome to the products api');
 });
 router.get('/products', controllers.queryProducts);
 router.get('/products/:product_id', controllers.queryProductId);
