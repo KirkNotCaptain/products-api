@@ -34,9 +34,20 @@ The system was then deployed on an AWS EC2 instance using Docker and tested via 
 
 ## Requirements
 
+Ensure that the following modules are installed before running `npm install`
+
+- Node v10.13.10 or higher
+
 ## ETL
 
 ## Routes
+
+| Request Type | Endpoint                      | Returns                                                                                                                                         | Status |
+| ------------ | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| GET          | /products                     | an array containing all products by id in ascending order. The number of products returned can be modified using the count and page parameters. | 200    |
+| GET          | /products/:product_id         | an object containing the full product details for a particular product.                                                                         | 200    |
+| GET          | /products/:product_id/related | an array containing the product ids of all related products for a particular product                                                            | 200    |
+| GET          | /products/:product_id/styles  | an object containing the product id and results property that contains all of the style data for a particular product                           | 200    |
 
 ## System Testing
 
