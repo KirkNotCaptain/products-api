@@ -1,6 +1,10 @@
 const redis = require('redis');
 const REDIS_PORT = 6379;
-const redisClient = redis.createClient(REDIS_PORT);
+//const redisClient = redis.createClient(REDIS_PORT);
+const redisClient = redis.createClient({
+  host: 'redis',
+  port: REDIS_PORT,
+});
 
 /**
  * Redis cache middleware intercepting requests to /products

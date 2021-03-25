@@ -9,8 +9,6 @@ services:
     image: mongo
     ports:
       - 27017:27017
-    volumes:
-      - ./db/mongo-data:/data/db
 
 
   app:
@@ -18,6 +16,4 @@ services:
     build: ./
     ports:
       - 8080:8080
-
-
 
