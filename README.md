@@ -25,10 +25,12 @@ The system was then deployed on an AWS EC2 instance using Docker and tested via 
 ## Technologies Used
 
 > Backend
-> Node
-> Express
-> Mongodb ODM
-> Docker
+
+- Node
+- Express
+- Redis
+- Mongodb
+- Docker
 
 ## Requirements
 

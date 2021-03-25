@@ -35,12 +35,9 @@ const productIdCache = (req, res, next) => {
 
   redisClient.get(`product${id}`, (err, data) => {
     if (err) throw err;
-
     if (data) {
-      // console.log('found in redis');
       res.status(200).send(JSON.parse(data));
     } else {
-      // console.log('not found in redis');
       next();
     }
   });
