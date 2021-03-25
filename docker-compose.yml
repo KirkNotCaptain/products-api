@@ -7,6 +7,11 @@ services:
     volumes:
       - ./db/mongo-data:/data/db
 
+  redis:
+    image: redis
+    ports: 
+      - 6379:6379
+
   app:
     container_name: products-api
     build: ./

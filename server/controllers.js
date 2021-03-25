@@ -1,5 +1,10 @@
+const redis = require('redis');
+const REDIS_PORT = 6379;
+const redisClient = redis.createClient(REDIS_PORT);
+
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://mongo:27017';
+// const url = 'mongodb://mongo:27017';
+const url = 'mongodb://localhost:27017';
 let db;
 let productsCollection;
 let stylesCollection;
@@ -22,7 +27,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }) //
                   Retrieves the list of products
                             Parameters:
      page - int - Selects the page of results to return. Default 1.
-     count - int = Specifies how many results per page to return. Default 5.
+ count - int = Specifies how many results per page to return. Default 5.
   =========================================================================*/
 let queryProducts = (req, res) => {
   // console.log(productsCollection);
@@ -46,6 +51,8 @@ let queryProducts = (req, res) => {
         return;
       }
 
+      redisClient.setex(limit, 3600, JSON.stringify(docs));
+
       res.status(200).send(docs);
     });
 };
@@ -65,6 +72,8 @@ let queryProductId = (req, res) => {
         res.status(200).send({});
         return;
       }
+
+      redisClient.setex(`product${id}`, 3600, JSON.stringify(docs));
       res.status(200).send(docs);
     });
 };
@@ -85,6 +94,7 @@ let queryRelatedProducts = (req, res) => {
         res.status(200).send({});
         return;
       }
+      redisClient.setex(`related${id}`, 3600, JSON.stringify(docs));
       res.status(200).send(docs['related']);
     });
 };
@@ -136,6 +146,7 @@ let queryProductStyles = (req, res) => {
         result['skus'] = skus;
       });
 
+      redisClient.setex(`style${product_id}`, 3600, JSON.stringify(response));
       res.status(200).send(response);
     });
   });
