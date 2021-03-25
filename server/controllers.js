@@ -1,10 +1,14 @@
 const redis = require('redis');
 const REDIS_PORT = 6379;
-const redisClient = redis.createClient(REDIS_PORT);
+//const redisClient = redis.createClient(REDIS_PORT);
+const redisClient = redis.createClient({
+  host: 'redis',
+  port: REDIS_PORT,
+});
 
 const MongoClient = require('mongodb').MongoClient;
-// const url = 'mongodb://mongo:27017';
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://mongo:27017';
+//const url = 'mongodb://localhost:27017';
 let db;
 let productsCollection;
 let stylesCollection;
