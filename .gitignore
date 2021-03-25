@@ -131,3 +131,6 @@ pyenv
 Vagrantfile
 *.turtle
 *.interim
+db/mongo-data/*
+db/.DS_Store
+*.rdb
