@@ -61,9 +61,23 @@ The minimum requirements were as follows:
 Initial testing for all endpoints passed these requirements with the latency measuring between 12-13ms. These numbers remained consistent until stress loads of over 500 RPS were introduced.
 
 **Results After Redis Caching**
+
 After Redis Caching was implemented, server performance increased significantly for all endpoints as shown in the examples below:
 
+**/styles Loader Results Initial**
+
+|             | Stress Load | Latency | Error Rate | Success Rate |
+| ----------- | ----------- | ------- | ---------- | ------------ |
+| **/styles** | 1000 RPS    | 2212ms  | 0%         | 66%          |
+
 ![Initial styles loader test](imgs/styles-initial.png '/styles Initial Loader Results')
+
+**/styles Post Redis Caching Results**
+
+|             | Stress Load | Latency | Error Rate | Success Rate |
+| ----------- | ----------- | ------- | ---------- | ------------ |
+| **/styles** | 1000 RPS    | 12ms    | 0%         | 100%         |
+
 ![Post Redis styles loader test](imgs/styles-post-redis.png '/styles Post Redis Loader Results')
 
 ## Notes
