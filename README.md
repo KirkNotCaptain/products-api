@@ -66,7 +66,9 @@ After Redis Caching was implemented, server performance increased significantly 
 
 **/styles Loader Results Initial**
 
-|             | Stress Load | Latency | Error Rate | Success Rate |
+---
+
+| Route       | Stress Load | Latency | Error Rate | Success Rate |
 | ----------- | ----------- | ------- | ---------- | ------------ |
 | **/styles** | 1000 RPS    | 2212ms  | 0%         | 66%          |
 
@@ -74,7 +76,9 @@ After Redis Caching was implemented, server performance increased significantly 
 
 **/styles Post Redis Caching Results**
 
-|             | Stress Load | Latency | Error Rate | Success Rate |
+---
+
+| Route       | Stress Load | Latency | Error Rate | Success Rate |
 | ----------- | ----------- | ------- | ---------- | ------------ |
 | **/styles** | 1000 RPS    | 12ms    | 0%         | 100%         |
 
