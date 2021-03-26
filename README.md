@@ -54,7 +54,8 @@ Ensure that the following modules are installed before running `npm install`
 Server testing was done primarily through loader.io
 The minimum requirements were as follows:
 
-| | Stress Load | Latency | Error Rate
-| Minimum Requirements | 100 RPS | < 2000ms | < 1% |
+|                      | Stress Load | Latency  | Error Rate |
+| -------------------- | ----------- | -------- | ---------- |
+| Minimum Requirements | 100 RPS     | < 2000ms | < 1%       |
 
 ## Notes
