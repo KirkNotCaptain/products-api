@@ -54,8 +54,16 @@ Ensure that the following modules are installed before running `npm install`
 Server testing was done primarily through loader.io
 The minimum requirements were as follows:
 
-|                      | Stress Load | Latency  | Error Rate |
-| -------------------- | ----------- | -------- | ---------- |
-| Minimum Requirements | 100 RPS     | < 2000ms | < 1%       |
+|                          | Stress Load | Latency  | Error Rate |
+| ------------------------ | ----------- | -------- | ---------- |
+| **Minimum Requirements** | 100 RPS     | < 2000ms | < 1%       |
+
+Initial testing for all endpoints passed these requirements with the latency measuring between 12-13ms. These numbers remained consistent until stress loads of over 500 RPS were introduced.
+
+**Results After Redis Caching**
+After Redis Caching was implemented, server performance increased significantly for all endpoints as shown in the examples below:
+
+![Initial styles loader test](imgs/styles-initial.png '/styles Initial Loader Results')
+![Post Redis styles loader test](imgs/styles-post-redis.png '/styles Post Redis Loader Results')
 
 ## Notes
