@@ -6,15 +6,16 @@ The raw data for his application was delivered in multiple CSVs that contained o
 
 The system was then deployed on an AWS EC2 instance using Docker and tested via loader.io.
 
+![readme dependency logos](imgs/readme-logos.png 'readme depedency logos')
+
 ## Table of Contents
 
-- Installing Dependencies
-- Technologies Used
-- Requirements
-- ETL
-- Routes
-- System Testing
-- Notes
+- [Installing Dependencies](#Installing-Dependencies)
+- [Technologies Used](#Technologies-Used)
+- [Requirements](#Requirements)
+- [ETL](#ETL)
+- [Routes](#Routes)
+- [System Testing](#System-Testing)
 
 ## Installing Dependencies
 
@@ -26,11 +27,11 @@ The system was then deployed on an AWS EC2 instance using Docker and tested via 
 
 > Backend
 
-- Node
-- Express
-- Redis
-- Mongodb
-- Docker
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Redis](https://redis.io/)
+- [Mongodb](https://www.mongodb.com/)
+- [Docker](https://www.docker.com/)
 
 ## Requirements
 
@@ -39,6 +40,8 @@ Ensure that the following modules are installed before running `npm install`
 - Node v10.13.10 or higher
 
 ## ETL
+
+This project underwent a large scale ETL process that transformed 4 CSVs containing over 30 million entries into 3 schemas. ETL was performed primarily through Mongodb aggregation pipelines executed within the Mongo Compass GUI. To preview the aggregation pipelines visit the db/ETL directory within this repository.
 
 ## Routes
 
@@ -56,7 +59,7 @@ The minimum requirements were as follows:
 
 |                          | Stress Load | Latency  | Error Rate |
 | ------------------------ | ----------- | -------- | ---------- |
-| **Minimum Requirements** | 100 RPS     | < 2000ms | < 1%       |
+| **Minimum Requirements** | 500 RPS     | < 2000ms | < 1%       |
 
 Initial testing for all endpoints passed these requirements with the latency measuring between 12-13ms. These numbers remained consistent until stress loads of over 500 RPS were introduced.
 
@@ -83,5 +86,3 @@ After Redis Caching was implemented, server performance increased significantly 
 | **/styles** | 1000 RPS    | 12ms    | 0%         | 100%         |
 
 ![Post Redis styles loader test](imgs/styles-post-redis.png '/styles Post Redis Loader Results')
-
-## Notes
